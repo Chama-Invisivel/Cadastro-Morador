@@ -5,8 +5,6 @@
   <meta charset="UTF-8">
   <title>Cadastro</title>
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
-  <script type="text/javascript" src="js/bootstrap-filestyle.js"></script>
- <script src="form.js"></script>
   <link rel="stylesheet" href="form.css">
   
 
@@ -87,13 +85,13 @@
         <div class="description">Olá, esse é o primeiro passo para iniciar o cadastro. </div>
 
         <form>
-          <div class="label">Nome/Apelido</div>
-          <input type="text" placeholder="Nome" />
+          <div class="label">Cel</div>
+          <input type="tel" placeholder="Cel" />
 
           <div class="label">Rua/Melhor localização</div>
           <input type="email" placeholder="Email" />
           <div class="text-center">
-            <div class="button">Próximo</div>
+            <div class="button prox">Próximo</div>
           </div>
         </form>
       </div>
@@ -129,12 +127,13 @@
 
             <br>
             <input type="text" name="outros" id="outros"> 
-          </labelt>
+          
 
 
           <div class="text-center fade-in">
-            <button class="botao-volta" onclick="volta()">Voltar</button>
-            <div class="button">Próximo</div>
+            <!--tick button volta e prox-->
+            <div class="button volta">Anterior</div>
+            <div class="button prox">Próximo</div>
           </div>
 
         </form>
@@ -153,10 +152,10 @@
         <div class="img">Imagem</div>
         <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
 
-                  <div class="text-center fade-in">
-                    <button class="botao-volta" onclick="volta()">Voltar</button>
-            <div class="button">Próximo</div>
-          </div>
+        <div class="text-center fade-in">
+          <div class="button volta">Anterior</div>
+          <div class="button prox">Próximo</div>
+        </div>
       </div>
 
       <div class="modal-body modal-body-step-4">
@@ -172,9 +171,9 @@
             
           </label>
         </form>
-
-      
-        <div class="button">Feito!</div>
+        <!--tick button volta e prox-->
+        <div class="button volta">Anterior</div>
+        <div class="button prox">Feito!</div>
       </div>
     </div>
   </div>
@@ -187,13 +186,12 @@
   <div class="text-center">
     <div class="rerun-button">ReRun</div>
   </div>
-  <script
-    src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-8216c69d01441f36c0ea791ae2d4469f0f8ff5326f00ae2d00e4bb7d20e24edb.js">
-  </script>
+ 
 
   <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
   <script id="rendered-js">
-    $('.button').click(function () {
+    // tick - de button pra prox
+    $('.prox').click(function () {
       var $btn = $(this),
         $step = $btn.parents('.modal-body'),
         stepIndex = $step.index(),
@@ -201,8 +199,21 @@
 
       if (stepIndex === 0 || stepIndex === 1 || stepIndex === 2) {
         step1($step, $pag);
-      } else {
+      // tick - de else pra else if
+      }  else if (stepIndex === 3) {
         step4($step, $pag);
+      }
+
+    });
+    //tick - função volta
+    $('.volta').click(function () {
+      var $btn = $(this),
+        $step = $btn.parents('.modal-body'),
+        stepIndex = $step.index(),
+        $pag = $('.modal-header span').eq(stepIndex);
+
+      if (stepIndex === 1 || stepIndex === 2 || stepIndex === 3) {
+        volta($step, $pag);
       }
 
     });
@@ -229,7 +240,6 @@
       }, 1200);
     }
 
-
     function step4($step, $pag) {
       console.log('3');
 
@@ -239,6 +249,27 @@
       setTimeout(function () {
         $('.rerun-button').css('display', 'inline-block');
       }, 300);
+    }
+    //tick - função volta, copia da step1, prev() ao invés de next()
+    function volta($step, $pag) {
+      console.log('2');
+      // animate the step out
+      $step.addClass('animate-out');
+
+      // animate the step in
+      setTimeout(function () {
+        $step.removeClass('animate-out is-showing').
+        prev().addClass('animate-in');
+        $pag.removeClass('is-active').
+        prev().addClass('is-active');
+      }, 600);
+
+      // after the animation, adjust the classes
+      setTimeout(function () {
+        $step.prev().removeClass('animate-in').
+        addClass('is-showing');
+
+      }, 1200);
     }
 
     $('.rerun-button').click(function () {
@@ -262,6 +293,7 @@
       siblings().removeClass('is-active');
       $(this).hide();
     });
+
   </script>
  <script src="cadastro.js"></script>
 

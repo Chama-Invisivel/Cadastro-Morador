@@ -30,7 +30,8 @@ html {
   }
   
   input[type=text],
-  input[type=email] {
+  input[type=email],
+  input[type=tel] {
     padding: 10px 20px;
     border: 1px solid #999;
     border-radius: 3px;
@@ -41,7 +42,8 @@ html {
     outline: none;
   }
   input[type=text]:focus,
-  input[type=email]:focus {
+  input[type=email]:focus,
+  input[type=tel]:focus {
     border-color: #FF6F00;
   }
   
@@ -152,7 +154,7 @@ html {
   }
   
   .animate-up {
-    transform: translateY(-500px) rotate(30deg);
+    transform: translateY(-1000px) rotate(30deg);
   }
   
   @-webkit-keyframes out {
